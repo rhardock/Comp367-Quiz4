@@ -13,6 +13,8 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  outputDir: '$(Build.SourcesDirectory)/bin/$(buildConfiguration)/net8.0/publish'
+
 
 steps:
 - task: NuGetToolInstaller@1
@@ -31,6 +33,12 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo Listing output directory...
+      dir $(outputDir)    
 
 - task: CmdLine@2
   inputs:
