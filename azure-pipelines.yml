@@ -36,13 +36,21 @@ steps:
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)\DatabaseAccessApp\DatabaseAccessApp\bin\Release\net8.0'
-    Contents: 'DatabaseAccessApp.exe'
+    Contents: '**/*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-  displayName: 'Copy EXE to Artifact Staging Directory'
+  displayName: 'Copy All Files to Artifact Staging Directory'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false  # Optional: set to true if you want to include the root folder inside the zip
+    archiveFile: '$(Build.ArtifactStagingDirectory)\DatabaseAccessApp.zip'  # Name of the zip file
+    replaceExistingArchive: true
+  displayName: 'Zip Files'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    pathToPublish: '$(Build.ArtifactStagingDirectory)\DatabaseAccessApp.zip'  # Path to the zip file
     artifactName: 'drop'
     publishLocation: 'Container'
   displayName: 'Publish Artifact'
