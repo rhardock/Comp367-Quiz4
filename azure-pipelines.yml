@@ -38,7 +38,7 @@ steps:
   inputs:
     script: |
       echo Listing all directories...
-      dir "$(Build.SourcesDirectory)\bin\$(buildConfiguration)"
+      dir "$(Build.SourcesDirectory)" /s
 
 - task: CmdLine@2
   inputs:
