@@ -33,16 +33,17 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    
-- task: CmdLine@2
-  inputs:
-    script: |
-      echo Listing all directories...
-      dir "$(Build.SourcesDirectory)" /s
 
-- task: CmdLine@2
+- task: CopyFiles@2
   inputs:
-    script: |
-      echo Running application...
-      cd "$(outputDir)"
-      .\DatabaseAccessApp.exe  # Replace with your actual exe name
+    SourceFolder: '$(Build.SourcesDirectory)\DatabaseAccessApp\DatabaseAccessApp\bin\Release\net8.0'
+    Contents: 'DatabaseAccessApp.exe'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy EXE to Artifact Staging Directory'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'drop'
+    publishLocation: 'Container'
+  displayName: 'Publish Artifact'
