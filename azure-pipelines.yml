@@ -38,11 +38,11 @@ steps:
   inputs:
     script: |
       echo Listing output directory...
-      dir $(outputDir)    
+      dir "$(outputDir)"
 
 - task: CmdLine@2
   inputs:
     script: |
       echo Running application...
-      cd $(outputDir)
+      cd "$(outputDir)"
       .\DatabaseAccessApp.exe  # Replace with your actual exe name
