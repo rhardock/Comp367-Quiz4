@@ -13,7 +13,6 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  outputDir: '$(Build.SourcesDirectory)/bin/$(buildConfiguration)/net8.0/publish'
 
 
 steps:
