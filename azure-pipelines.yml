@@ -33,12 +33,12 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
+    
 - task: CmdLine@2
   inputs:
     script: |
-      echo Listing output directory...
-      dir "$(outputDir)"
+      echo Listing all directories...
+      dir "$(Build.SourcesDirectory)\bin\$(buildConfiguration)"
 
 - task: CmdLine@2
   inputs:
